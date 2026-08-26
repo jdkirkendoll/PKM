@@ -15,11 +15,12 @@ Process every note in `0-Inbox/` (skip `README.md`) and file it into the vault's
    - **2-Areas/** — an ongoing responsibility with no finish line.
    - **3-Resources/** — reference material. Research write-ups / synthesized guides go in `3-Resources/Guides/`.
    - **4-Archive/** — only if the note is clearly about something already finished/inactive.
+   - **Meeting notes, CRIMS specs, and discovery-session notes** (see `Templates/`) almost always belong to a specific project — file them inside that project's subfolder (`1-Projects/<Project>/`) rather than under Resources. If no matching project exists yet, treat the note as the start of a new project subfolder.
 3. Search the rest of the vault (grep across the PARA folders) for existing notes on the same topic, project, or entity. Add a `## Related` section to the note linking them with `[[wikilinks]]`.
-4. Add or normalize frontmatter:
+4. Add or normalize frontmatter. Match the shape used by the relevant template in `Templates/` (`Project.md`, `Guide.md`, `Meeting.md`, `CRIMS Specification.md`, `Discovery/*.md`) — at minimum every note gets:
    ```yaml
    ---
-   type: project | area | resource | guide
+   type: project | area | resource | guide | meeting | crims-spec | discovery-session
    tags: [...]
    created: YYYY-MM-DD   # today, unless the note itself states otherwise
    # projects only:
@@ -28,6 +29,8 @@ Process every note in `0-Inbox/` (skip `README.md`) and file it into the vault's
    due:
    # guides only:
    source: web | notes | mixed
+   # crims-spec / discovery-session only:
+   crim_id:
    ---
    ```
 5. Move the file into place. If it has a generic name (`Untitled`, a timestamp, etc.), rename it to something descriptive based on its content.
