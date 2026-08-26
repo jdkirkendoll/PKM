@@ -1,4 +1,5 @@
 ---
+type: guide
 topic: 
 source: web
 created: {{date}}

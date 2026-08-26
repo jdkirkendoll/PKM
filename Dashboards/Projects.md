@@ -3,6 +3,6 @@
 ```dataview
 TABLE status, area, due
 FROM "1-Projects"
-WHERE status
+WHERE type = "project"
 SORT due ASC
 ```

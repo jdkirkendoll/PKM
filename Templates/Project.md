@@ -1,8 +1,10 @@
 ---
+type: project
 status: active
 area: 
 due: 
 tags: [project]
+created: {{date}}
 ---
 
 # {{title}}
