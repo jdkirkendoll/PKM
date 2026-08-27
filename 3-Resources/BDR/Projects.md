@@ -7,11 +7,11 @@ tags: [bdr]
 
 # Projects — BDR Items
 
-| Name | Data Point |
-| --- | --- |
-| BDR for Design Project Delivery Product | Register Inventory Part Template |
-| BDR for Design Project Delivery Product | Create Approval Template |
-| BDR for Design Project Delivery Product | Create Document Requirement |
+| Name | Data Point | Table/View | Query |
+| --- | --- | --- | --- |
+| BDR for Design Project Delivery Product | Register Inventory Part Template |  |  |
+| BDR for Design Project Delivery Product | Create Approval Template |  |  |
+| BDR for Design Project Delivery Product | Create Document Requirement |  |  |
 
 ## Related
 - [[2-Areas/Projects|Projects]]
