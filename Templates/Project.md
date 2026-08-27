@@ -1,5 +1,6 @@
 ---
 type: project
+customer: 
 status: active
 area: 
 due: 

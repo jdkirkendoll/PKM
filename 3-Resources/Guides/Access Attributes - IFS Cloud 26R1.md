@@ -1,3 +1,11 @@
+---
+type: guide
+topic: IFS Cloud HCM Access Attributes
+source: web
+created: 2026-08-26
+tags: [guide, ifs, hcm, security]
+---
+
 # Create Access Attributes
 
 ## Explanation
@@ -10,17 +18,17 @@ Access attributes lie at the base of advanced HCM data protection. They work as 
 
 You can select a logical unit from the graphical object structure. Main folders provide information about the general area that can be protected. In the main folders, logical units are listed. Their names usually suggest what data are they handling.
 
-Following are the options that can be selected in the **Attribute Type**field:
+Following are the options that can be selected in the **Attribute Type** field:
 
-- **Self-Access** - gives it's owner the ability to see and register their own data, connected by their own Person and Employee ID
-- **Access to Employee** - gives it's owner access to data of other employees connected by Employee ID
-- **Access to Person** - gives access to data of other persons connected by Person ID
-- **Access to Organization** - gives access to data which is not connected directly to employees or persons within an organization unit (e.g., headcount plan)
+- **Self-Access** - gives it's owner the ability to see and register their own data, connected by their own Person and Employee ID
+- **Access to Employee** - gives it's owner access to data of other employees connected by Employee ID
+- **Access to Person** - gives access to data of other persons connected by Person ID
+- **Access to Organization** - gives access to data which is not connected directly to employees or persons within an organization unit (e.g., headcount plan)
 
-To select the type of the authorization used in other areas of the application, you can use the **Authorization Type** field. In most cases this field should be left **empty**. If you are defining an access attribute for any of the areas listed in the expandable list of values, you need to select the relevant item on that list.  
-The **Authorization Type** field is used for backwards compatibility with older functionalities relying on HCM access solution where 4 authorization types were available. By default, all attributes that need this field filled in already have it. As such, this field should be left as it is unless there are problems with authorization of items presented in the field's dropdown list.
+To select the type of the authorization used in other areas of the application, you can use the **Authorization Type** field. In most cases this field should be left **empty**. If you are defining an access attribute for any of the areas listed in the expandable list of values, you need to select the relevant item on that list.
+The **Authorization Type** field is used for backwards compatibility with older functionalities relying on HCM access solution where 4 authorization types were available. By default, all attributes that need this field filled in already have it. As such, this field should be left as it is unless there are problems with authorization of items presented in the field's dropdown list.
 
-Set the **Active** option to Yes  in order to activate the attribute. If it is set to No, the attribute will not work and all.
+Set the **Active** option to Yes in order to activate the attribute. If it is set to No, the attribute will not work and all.
 
 ## Prerequisites
 
@@ -29,3 +37,7 @@ There are no prerequisites.
 ## System Effects
 
 As a result of this activity, a basic access attribute will be created. It will allow full access or no access to data stored in the logical unit.
+
+## Related
+- [[HR Access Configuration]]
+- [[CRIM006 - UKG Integration]] — relevant to the open "who needs an IFS user account" question

@@ -1,5 +1,6 @@
 ---
 type: meeting
+customer: CIR
 tags: [meeting, status-update]
 created: 2026-08-26
 attendees: []

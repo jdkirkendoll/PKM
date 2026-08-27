@@ -1,5 +1,6 @@
 ---
 type: project
+customer: CIR
 status: active
 area: 
 due: 

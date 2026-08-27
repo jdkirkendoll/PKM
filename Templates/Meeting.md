@@ -1,5 +1,6 @@
 ---
 type: meeting
+customer: 
 tags: [meeting]
 created: {{date}}
 attendees: []
