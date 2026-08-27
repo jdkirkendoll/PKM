@@ -43,7 +43,7 @@ Comparatively thin. Abinesh's team walked back the SFTP transport method that ha
 The pattern across nearly every open item is the same: the target-side design and logic is done and documented, and what's blocking closure is either a file CIRCOR hasn't sent, a field CIRCOR hasn't identified, or a question CIRCOR hasn't answered — several dating back months, not weeks.
 
 ## Action Items
-- [ ] 
+
 
 ## Related
 - [[CRIM006 - UKG Integration]]
