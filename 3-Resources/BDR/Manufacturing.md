@@ -20,11 +20,6 @@ tags: [bdr]
 | BDR for MS 1 | [[3-Resources/Glossary/Define Period Unit Calendar\|Define Period Unit Calendar]] |  |  |
 | BDR for MS 1 | [[3-Resources/Glossary/Create Period Template\|Create Period Template]] |  |  |
 | BDR for MS 1 | [[3-Resources/Glossary/Copy Period Template\|Copy Period Template]] |  |  |
-| BDR for RRP | [[3-Resources/Glossary/Define RRP Unique Work Centres\|Define RRP Unique Work Centres]] |  |  |
-| BDR for RRP | [[3-Resources/Glossary/Define RRP Resources\|Define RRP Resources]] |  |  |
-| BDR for RRP | [[3-Resources/Glossary/Define RRP Resource Routings\|Define RRP Resource Routings]] |  |  |
-| BDR for RRP | [[3-Resources/Glossary/Copy Period Template\|Copy Period Template]] |  |  |
-| BDR for RRP | [[3-Resources/Glossary/Create Period Template\|Create Period Template]] |  |  |
 | BDR for MGF Standards/Engineering Transfer | [[3-Resources/Glossary/Define Manufacturing Engineer\|Define Manufacturing Engineer]] |  |  |
 | BDR for MGF Standards/Engineering Transfer | [[3-Resources/Glossary/Define Default Mgf Engineer and Planner per Site\|Define Default Mgf Engineer and Planner per Site]] |  |  |
 | BDR for MGF Standards/Engineering Transfer | [[3-Resources/Glossary/Define a Part Transfer Template\|Define a Part Transfer Template]] |  |  |

@@ -3,7 +3,7 @@ type: glossary
 term: Define RRP Resource Routings
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, rrp]
 ---
 
 # Define RRP Resource Routings
@@ -16,7 +16,7 @@ An RRP resource routing defines, for a part, the sequence of operations and whic
 > The consumption mechanics (fixed/variable, per-operation work center assignment, time-phasing) are documented in IFS Cloud's RRP and Rough Cut Capacity Plan pages, but no page specifically titled "Define RRP Resource Routings" with field-level UI detail was found.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Resource Requirements Planning (RRP)|Resource Requirements Planning (RRP) (BDR)]]
 - [[3-Resources/Glossary/Define RRP Resources|Define RRP Resources]]
 - [[3-Resources/Glossary/Define RRP Unique Work Centres|Define RRP Unique Work Centres]]
 
