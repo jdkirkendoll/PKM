@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "WebSearch",
+      "WebFetch(domain:docs.ifs.com)",
+      "WebFetch(domain:ifs9demo.atifs.com)",
+      "WebFetch(domain:community.ifs.com)",
+      "WebFetch(domain:ifs-train.westsidecorporation.com)",
+      "WebFetch(domain:wssifshelp.wilhelmsen.com)"
+    ]
+  }
+}
