@@ -3,7 +3,7 @@ type: glossary
 term: Assign Cost Element to Cost Bucket
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Assign Cost Element to Cost Bucket
@@ -16,7 +16,7 @@ This activity connects individual Cost Elements to a Cost Bucket so that the buc
 > No single official documentation page titled exactly "Assign Cost Element to Cost Bucket" was found; this is built from the Define Cost Bucket and Cost Elements documentation, which describe the bucket-to-element relationship but not a standalone named activity.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Cost Element|Define Cost Element]]
 - [[3-Resources/Glossary/Define Cost Bucket|Define Cost Bucket]]
 

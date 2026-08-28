@@ -3,7 +3,7 @@ type: glossary
 term: Define Cost Centre Costs
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Define Cost Centre Costs
@@ -16,7 +16,7 @@ Once a Cost Centre exists, its actual budgeted cost amount is entered in the Cos
 > Sourced from a training-exercise walkthrough of the Cost Center window ("enter the total cost for the cost center in cost set 2") rather than a dedicated reference page; exact field name and screen layout were not confirmed against current IFS Cloud documentation.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Cost Centre|Define Cost Centre]]
 - [[3-Resources/Glossary/Assign Activity to Cost Centre|Assign Activity to Cost Centre]]
 

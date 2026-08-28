@@ -3,7 +3,7 @@ type: glossary
 term: Define Customer Requirements/Product Features
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Define Customer Requirements/Product Features
@@ -16,7 +16,7 @@ This basic data defines the lists of customer requirements and corresponding pro
 > No IFS Cloud documentation page or community thread using the exact term "Define Customer Requirements/Product Features" was found via web search. This entry is inferred from general QFD methodology and this data point's placement next to "Define CVA Importance" in the Manufacturing BDR's costing basic data section, not from a source describing the specific IFS Cloud screen or field behavior.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define CVA Importance|Define CVA Importance]]
 
 ## Sources

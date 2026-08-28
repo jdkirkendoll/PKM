@@ -3,7 +3,7 @@ type: glossary
 term: Define Cost Estimator
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Define Cost Estimator
@@ -16,7 +16,7 @@ Cost Estimator in IFS Cloud Costing identifies the person (or organizational rol
 > No dedicated official IFS documentation page titled "Define Cost Estimator" was found; this is built from an IFS Community discussion describing the Cost Estimator field on Part Cost records, which is the most specific source available on this exact term.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Assign Cost Estimator to one or many Parts|Assign Cost Estimator to one or many Parts]]
 - [[3-Resources/Glossary/Define Cost Set|Define Cost Set]]
 

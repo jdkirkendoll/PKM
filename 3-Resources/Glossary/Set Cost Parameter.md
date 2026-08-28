@@ -3,7 +3,7 @@ type: glossary
 term: Set Cost Parameter
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Set Cost Parameter
@@ -16,7 +16,7 @@ Cost Parameters are per-site, system-provided settings maintained on the Cost Pa
 > The distinction between "Set Cost Parameter" and "Define Cost Parameter" as separate BDR steps is not explicit in the source documentation — both appear to map to the same Cost Parameters tab of Costing Basic Data, one likely covering initial parameter setup and the other covering changing values per site.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Cost Parameter|Define Cost Parameter]]
 - [[3-Resources/Glossary/Define Cost Set|Define Cost Set]]
 

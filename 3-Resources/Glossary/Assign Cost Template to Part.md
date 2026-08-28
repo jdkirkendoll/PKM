@@ -3,7 +3,7 @@ type: glossary
 term: Assign Cost Template to Part
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Assign Cost Template to Part
@@ -16,7 +16,7 @@ Every inventory part needs a Cost Template attached so the costing system knows 
 > IFS Community discussion notes that changing a part's cost template after the part already exists does not always behave as expected in the Part Cost screen — a caveat worth validating against the current IFS Cloud release rather than a specific documented field-level procedure.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Assign Cost Buckets to Cost Template|Assign Cost Buckets to Cost Template]]
 
 ## Sources

@@ -3,7 +3,7 @@ type: glossary
 term: Apply Changes to Cost Set
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Apply Changes to Cost Set
@@ -16,7 +16,7 @@ This activity commits a cost-set-scoped template override (or other cost-set-lev
 > No IFS Cloud documentation page or community thread describing "Apply Changes to Cost Set" by that exact name was found. This entry is inferred from the documented Override Default Cost Template for Cost Set workflow rather than a source that names this specific activity.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Override Default Cost Template for Cost Set|Override Default Cost Template for Cost Set]]
 - [[3-Resources/Glossary/Apply Changes to Part Cost Group|Apply Changes to Part Cost Group]]
 

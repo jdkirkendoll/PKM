@@ -3,7 +3,7 @@ type: glossary
 term: Define Cost Parameter
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Define Cost Parameter
@@ -16,7 +16,7 @@ This activity is where a site's Cost Parameters are first configured in IFS Clou
 > The distinction between "Define Cost Parameter" and "Set Cost Parameter" as separate BDR steps is not explicit in the source documentation — both appear to map to the same Cost Parameters tab of Costing Basic Data.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Set Cost Parameter|Set Cost Parameter]]
 - [[3-Resources/Glossary/Define Cost Set|Define Cost Set]]
 

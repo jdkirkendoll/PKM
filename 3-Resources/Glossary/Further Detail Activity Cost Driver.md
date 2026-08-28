@@ -3,7 +3,7 @@ type: glossary
 term: Further Detail Activity Cost Driver
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Further Detail Activity Cost Driver
@@ -16,7 +16,7 @@ This data point covers the additional attributes entered when setting up an Acti
 > IFS Cloud documentation does not clearly separate "Define Activity Cost Driver" from a distinct "Further Detail" step under those exact names — this entry infers the further-detail fields (Overhead Type, driver source number, Factor Percentage) from a training exercise walkthrough of the same Activity Cost Drivers window, rather than from a dedicated documentation page using this BDR wording.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Activity Cost Driver|Define Activity Cost Driver]]
 - [[3-Resources/Glossary/Define Activity|Define Activity]]
 

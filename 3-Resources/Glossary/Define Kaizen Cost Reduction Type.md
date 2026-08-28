@@ -3,7 +3,7 @@ type: glossary
 term: Define Kaizen Cost Reduction Type
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Define Kaizen Cost Reduction Type
@@ -16,7 +16,7 @@ Reduction Type is basic data used within IFS Cloud's Kaizen Costing functionalit
 > Official documentation describes "Reduction Type" as basic data within Kaizen Costing, but a dedicated page titled "Define Kaizen Cost Reduction Type" with exact field-level steps was not found; this summary is built from the general Kaizen Costing overview page.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Cost Set|Define Cost Set]]
 
 ## Sources

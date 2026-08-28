@@ -3,7 +3,7 @@ type: glossary
 term: Define CVA Importance
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Define CVA Importance
@@ -16,7 +16,7 @@ CVA (Customer Value Added) Importance is basic data used in IFS Cloud's Quality 
 > No IFS Cloud documentation page or community thread using the exact term "Define CVA Importance" was found via web search. This entry is inferred from the general Quality Function Deployment / Customer Value Added methodology (which uses importance weightings on customer requirements) and from this data point's placement alongside "Define Customer Requirements/Product Features" in the Manufacturing BDR, not from a source describing the specific IFS Cloud screen or field behavior.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Customer Requirements-Product Features|Define Customer Requirements/Product Features]]
 
 ## Sources

@@ -3,7 +3,7 @@ type: glossary
 term: Apply Changes to Part Cost Group
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Apply Changes to Part Cost Group
@@ -16,7 +16,7 @@ After a Part Cost Group's default cost template (or a template override on it) i
 > No IFS Cloud documentation page or community thread describing "Apply Changes to Part Cost Group" by that exact name was found. This entry is inferred from the documented Part Cost Group / Override Default Cost Template workflow (define group → assign parts → optionally override template → the change must then be applied/propagated) rather than a source that names this specific activity.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Part Cost Group|Define Part Cost Group]]
 - [[3-Resources/Glossary/Override Default Cost Template for Part Cost Group|Override Default Cost Template for Part Cost Group]]
 

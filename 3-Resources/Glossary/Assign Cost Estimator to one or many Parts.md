@@ -3,7 +3,7 @@ type: glossary
 term: Assign Cost Estimator to one or many Parts
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Assign Cost Estimator to one or many Parts
@@ -16,7 +16,7 @@ This activity connects a previously defined Cost Estimator (Person) to one or mo
 > No dedicated official IFS documentation page describing bulk/multi-part assignment was found; this is inferred from an IFS Community discussion of the Cost Estimator field on individual Part Cost records, which does not explicitly confirm a separate bulk-assignment UI for "one or many" parts.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Define Cost Estimator|Define Cost Estimator]]
 - [[3-Resources/Glossary/Define Cost Set|Define Cost Set]]
 

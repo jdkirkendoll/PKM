@@ -3,7 +3,7 @@ type: glossary
 term: Where Used Analysis for Cost Elements
 source: web
 created: 2026-08-28
-tags: [glossary, ifs, manufacturing]
+tags: [glossary, ifs, costing]
 ---
 
 # Where Used Analysis for Cost Elements
@@ -16,7 +16,7 @@ A Cost Element corresponds to a cost-generating item such as material cost, work
 > No IFS Cloud documentation page describing a "Where Used Analysis" screen specifically for Cost Elements was found. This entry combines documented Cost Element concepts (element → cost bucket → cost template) with IFS Cloud's general "where used" dependency-check pattern seen elsewhere in the product, rather than a source confirming the exact costing screen.
 
 ## Related
-- [[3-Resources/BDR/Manufacturing|Manufacturing (BDR)]]
+- [[3-Resources/BDR/Costing|Costing (BDR)]]
 - [[3-Resources/Glossary/Where Used Analysis for Cost Buckets|Where Used Analysis for Cost Buckets]]
 
 ## Sources
