@@ -64,6 +64,54 @@ html, body {
   letter-spacing: 0.04em;
   color: var(--accent);
   text-shadow: 0 0 8px var(--accent-soft), 0 0 18px var(--accent-soft);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#sidebar-backdrop { display: none; }
+
+#mobile-topbar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+  flex-shrink: 0;
+}
+
+#menu-open {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#mobile-brand {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-soft);
 }
 
 .brand-accent { color: var(--accent2); text-shadow: 0 0 8px var(--accent2-soft); }
@@ -551,3 +599,70 @@ html, body {
   text-align: left;
 }
 .doc-card-body a, #doc-view a { color: var(--accent2); text-shadow: 0 0 6px var(--accent2-soft); }
+
+/* ---------- responsive / mobile ---------- */
+
+@media (max-width: 960px) {
+  .doc-card { width: min(440px, 80vw); }
+}
+
+@media (max-width: 760px) {
+  #app { position: relative; overflow: hidden; }
+
+  #mobile-topbar { display: flex; }
+
+  #menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+
+  #sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 100;
+    width: min(300px, 84vw);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.6);
+  }
+
+  #app.sidebar-open #sidebar { transform: translateX(0); }
+
+  #sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 90;
+  }
+
+  #app.sidebar-open #sidebar-backdrop { display: block; }
+
+  #main { width: 100%; }
+
+  #messages { padding: 16px; }
+
+  .msg { max-width: 92%; font-size: 13.5px; }
+
+  #chat-form { padding: 10px 14px; }
+
+  #chat-controls { flex-wrap: wrap; }
+
+  #persona-select, #model-select { flex: 1 1 120px; min-width: 0; }
+
+  #doc-view { padding: 20px 16px; }
+
+  #browse-canvas .placeholder { left: 16px; right: 16px; top: 20px; }
+
+  .doc-card {
+    width: 92vw;
+    max-width: 92vw;
+    left: 4vw !important;
+  }
+
+  .doc-card.collapsed { width: 92vw; }
+}
+
+@media (max-width: 420px) {
+  .msg { max-width: 100%; font-size: 13px; }
+  #view-mode { flex-direction: column; align-items: flex-start; gap: 4px; }
+  #chat-controls { gap: 6px; }
+  #send-btn { padding: 8px 14px; }
+}
