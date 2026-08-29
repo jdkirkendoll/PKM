@@ -83,7 +83,6 @@ views:
     order:
       - file.name
       - area
-      - customer
       - status
       - due
       - created
@@ -98,7 +97,6 @@ views:
     order:
       - file.name
       - project
-      - customer
       - attendees
       - created
     sort:

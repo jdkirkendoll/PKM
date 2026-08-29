@@ -36,8 +36,7 @@ Don't extract or read the full document — that wastes tokens on content that's
 Use the same frontmatter shape as `/organize-inbox`:
 ```yaml
 ---
-type: project | area | resource | guide | meeting | crims-spec | discovery-session
-customer:              # 3-letter customer code, when the note is customer work
+type: project | area | resource | guide | meeting
 tags: [...]
 created: YYYY-MM-DD   # today, unless the note itself states otherwise
 # projects only:
@@ -46,11 +45,11 @@ area:
 due:
 # guides/resources only:
 source: web | notes | mixed | pdf
-# crims-spec / discovery-session only:
-crim_id:
 ---
 ```
 If the note already has frontmatter, normalize it to this shape rather than duplicating fields.
+
+If the note is customer/client engagement work (has a `customer` value, or is a meeting/CRIMS-spec/discovery-session note tied to a specific customer), it doesn't belong in this vault — see "Customer notes don't belong in this vault" in `.claude/skills/organize-inbox/SKILL.md` and flag it the same way instead of filing it here.
 
 ## 4. Match it to an Area
 
@@ -72,7 +71,7 @@ Read through `2-Areas/*.md` and judge whether this note's subject matter is the 
 
 ## 5. File it in the right PARA folder
 
-Same destination rules as `/organize-inbox`: `1-Projects/` for notes with a concrete end state (nested under a customer's 3-letter code if it's customer work), `2-Areas/` for ongoing-responsibility notes, `3-Resources/` (guides under `3-Resources/Guides/`) for reference material, `4-Archive/` only if clearly inactive. Move the file if it isn't already there, and rename it if it has a generic name. For a PDF item, move the original PDF into the same destination folder as its note (per the PDF handling step above).
+Same destination rules as `/organize-inbox`: `1-Projects/` for non-customer notes with a concrete end state, `2-Areas/` for ongoing-responsibility notes, `3-Resources/` (guides under `3-Resources/Guides/`) for reference material, `4-Archive/` only if clearly inactive. Move the file if it isn't already there, and rename it if it has a generic name. For a PDF item, move the original PDF into the same destination folder as its note (per the PDF handling step above).
 
 ## When done
 

@@ -13,4 +13,4 @@ Process model for HR Access Configuration:
 
 ## Related
 - [[Access Attributes - IFS Cloud 26R1]]
-- [[CRIM006 - UKG Integration]] — relevant to the open "who needs an IFS user account" question
+- CRIM006 - UKG Integration (in the PKM-CUST vault) — relevant to the open "who needs an IFS user account" question
