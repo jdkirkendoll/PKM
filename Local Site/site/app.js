@@ -82,6 +82,8 @@ function renderMarkdown(md) {
   let listType = null; // 'ul' | 'ol'
   let inTable = false;
   let tableRows = [];
+  let inQuote = false;
+  let quoteLines = [];
 
   function closeList() {
     if (listType) { html += `</${listType}>`; listType = null; }
@@ -105,16 +107,58 @@ function renderMarkdown(md) {
     inTable = false;
     tableRows = [];
   }
+  function flushQuote() {
+    if (!inQuote) return;
+    const calloutMatch = quoteLines[0].match(/^\[!(\w+)\][-+]?\s*(.*)$/i);
+    if (calloutMatch) {
+      const type = calloutMatch[1].toLowerCase();
+      const titleText = calloutMatch[2].trim() || calloutMatch[1].charAt(0).toUpperCase() + calloutMatch[1].slice(1);
+      const bodyLines = quoteLines.slice(1);
+      html += `<div class="callout callout-${type}"><div class="callout-title">${renderInline(titleText)}</div>`;
+      if (bodyLines.length) html += `<div class="callout-body">${renderMarkdown(bodyLines.join("\n"))}</div>`;
+      html += "</div>";
+    } else {
+      html += `<blockquote>${quoteLines.map((l) => renderInline(l)).join("<br>")}</blockquote>`;
+    }
+    inQuote = false;
+    quoteLines = [];
+  }
+
+  let codeLang = "";
+  let dataviewLines = [];
 
   for (const rawLine of lines) {
     const line = rawLine;
     if (line.trim().startsWith("```")) {
-      closeList(); flushTable();
-      if (!inCode) { html += "<pre><code>"; inCode = true; }
-      else { html += "</code></pre>"; inCode = false; }
+      closeList(); flushTable(); flushQuote();
+      if (!inCode) {
+        codeLang = line.trim().slice(3).trim().toLowerCase();
+        inCode = true;
+        if (codeLang === "dataview") dataviewLines = [];
+        else html += "<pre><code>";
+      } else {
+        if (codeLang === "dataview") html += renderDataviewQuery(dataviewLines.join("\n"));
+        else html += "</code></pre>";
+        inCode = false;
+        codeLang = "";
+      }
       continue;
     }
-    if (inCode) { html += escapeHtml(line) + "\n"; continue; }
+    if (inCode) {
+      if (codeLang === "dataview") dataviewLines.push(line);
+      else html += escapeHtml(line) + "\n";
+      continue;
+    }
+
+    const bq = line.match(/^>\s?(.*)$/);
+    if (bq) {
+      closeList(); flushTable();
+      inQuote = true;
+      quoteLines.push(bq[1]);
+      continue;
+    } else if (inQuote) {
+      flushQuote();
+    }
 
     if (/^\s*\|.*\|\s*$/.test(line)) {
       inTable = true;
@@ -129,13 +173,6 @@ function renderMarkdown(md) {
       closeList();
       const level = h[1].length;
       html += `<h${level}>${renderInline(h[2])}</h${level}>`;
-      continue;
-    }
-
-    const bq = line.match(/^>\s?(.*)$/);
-    if (bq) {
-      closeList();
-      html += `<blockquote>${renderInline(bq[1])}</blockquote>`;
       continue;
     }
 
@@ -159,41 +196,131 @@ function renderMarkdown(md) {
   }
   closeList();
   flushTable();
+  flushQuote();
   return html;
+}
+
+// ---------- dataview query rendering (minimal: TABLE/LIST, FROM "path" or FROM #tag, WHERE field = "v", SORT, LIMIT) ----------
+function fieldValue(doc, field) {
+  if (field === "file.name" || field === "file.link") return doc.title;
+  return doc.frontmatter ? doc.frontmatter[field] : undefined;
+}
+
+function parseDataviewQuery(query) {
+  const lines = query.split("\n").map((l) => l.trim()).filter(Boolean);
+  if (!lines.length) return null;
+  const head = lines[0].match(/^(TABLE|LIST)\b\s*(WITHOUT ID)?\s*(.*)$/i);
+  if (!head) return { unsupported: true };
+  const qtype = head[1].toUpperCase();
+  const withoutId = !!head[2];
+  let fieldsRaw = head[3].trim();
+
+  let i = 1;
+  while (i < lines.length && !/^(FROM|WHERE|SORT|GROUP BY|FLATTEN|LIMIT)\b/i.test(lines[i])) {
+    fieldsRaw += " " + lines[i];
+    i++;
+  }
+
+  let from = null;
+  let where = null;
+  let sort = null;
+  let limit = null;
+  let unsupported = false;
+
+  for (; i < lines.length; i++) {
+    const l = lines[i];
+    let m;
+    if ((m = l.match(/^FROM\s+"([^"]+)"\s*$/i))) {
+      from = { type: "folder", value: m[1] };
+    } else if ((m = l.match(/^FROM\s+#(\S+)\s*$/i))) {
+      from = { type: "tag", value: m[1] };
+    } else if ((m = l.match(/^WHERE\s+(\S+)\s*(=|!=)\s*"([^"]+)"\s*$/i))) {
+      where = { field: m[1], op: m[2], value: m[3] };
+    } else if ((m = l.match(/^SORT\s+(\S+)\s*(ASC|DESC)?\s*$/i))) {
+      sort = { field: m[1], dir: (m[2] || "ASC").toUpperCase() };
+    } else if ((m = l.match(/^LIMIT\s+(\d+)\s*$/i))) {
+      limit = parseInt(m[1], 10);
+    } else {
+      unsupported = true;
+    }
+  }
+
+  if (!from || unsupported) return { unsupported: true };
+
+  const fields =
+    qtype === "TABLE"
+      ? fieldsRaw
+          .split(",")
+          .map((f) => {
+            const am = f.trim().match(/^(\S+)\s+AS\s+"([^"]+)"$/i);
+            if (am) return { field: am[1], label: am[2] };
+            const f2 = f.trim();
+            return f2 ? { field: f2, label: f2 } : null;
+          })
+          .filter(Boolean)
+      : [];
+
+  return { qtype, withoutId, fields, from, where, sort, limit };
+}
+
+function renderDataviewQuery(query) {
+  const parsed = parseDataviewQuery(query);
+  if (!parsed || parsed.unsupported || !corpus) {
+    return `<div class="dataview-fallback"><div class="dataview-fallback-label">Dataview query (live view not available in this reader)</div><pre><code>${escapeHtml(query)}</code></pre></div>`;
+  }
+
+  let docs = corpus.docs.filter((d) => {
+    if (d.type !== "note") return false;
+    if (parsed.from.type === "folder") {
+      return d.relPath.startsWith(`${parsed.from.value}/`);
+    }
+    return (d.tags || []).includes(parsed.from.value);
+  });
+
+  if (parsed.where) {
+    const { field, op, value } = parsed.where;
+    docs = docs.filter((d) => {
+      const match = String(fieldValue(d, field) ?? "") === value;
+      return op === "=" ? match : !match;
+    });
+  }
+
+  if (parsed.sort) {
+    const { field, dir } = parsed.sort;
+    docs = [...docs].sort((a, b) => {
+      const av = String(fieldValue(a, field) ?? "");
+      const bv = String(fieldValue(b, field) ?? "");
+      return dir === "DESC" ? bv.localeCompare(av) : av.localeCompare(bv);
+    });
+  }
+
+  if (parsed.limit) docs = docs.slice(0, parsed.limit);
+  if (!docs.length) return `<p class="dataview-empty placeholder">No results.</p>`;
+
+  const linkFor = (doc) =>
+    `<a href="#" class="wikilink" data-target="${escapeHtml(doc.relPath.replace(/\.md$/, ""))}">${renderInline(doc.title)}</a>`;
+
+  if (parsed.qtype === "LIST") {
+    return `<ul class="dataview-list">${docs.map((d) => `<li>${linkFor(d)}</li>`).join("")}</ul>`;
+  }
+
+  const headerCells = (parsed.withoutId ? "" : "<th>File</th>") + parsed.fields.map((f) => `<th>${escapeHtml(f.label)}</th>`).join("");
+  const rows = docs
+    .map((d) => {
+      const cells = parsed.fields.map((f) => `<td>${renderInline(String(fieldValue(d, f.field) ?? ""))}</td>`).join("");
+      return `<tr>${parsed.withoutId ? "" : `<td>${linkFor(d)}</td>`}${cells}</tr>`;
+    })
+    .join("");
+  return `<table class="dataview-table"><thead><tr>${headerCells}</tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 // ---------- corpus loading & search ----------
 async function loadCorpus() {
-  const res = await fetch("data/corpus.json");
+  const res = await fetch("data/corpus.json", { cache: "no-store" });
   corpus = await res.json();
   $("#corpus-status").textContent =
     `${corpus.docs.length} docs, ${corpus.chunks.length} chunks (built ${new Date(corpus.generatedAt).toLocaleDateString()})`;
   renderDocList();
-  renderMobileDocSelect();
-}
-
-function renderMobileDocSelect() {
-  const select = $("#mobile-doc-select");
-  select.innerHTML = '<option value="">Select a note or PDF…</option>';
-  const groups = new Map();
-  for (const doc of corpus.docs) {
-    const group = doc.type === "pdf" ? "PDF Library" : path_dirname(doc.relPath);
-    if (!groups.has(group)) groups.set(group, []);
-    groups.get(group).push(doc);
-  }
-  const sortedGroups = [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-  for (const [group, docs] of sortedGroups) {
-    const optgroup = document.createElement("optgroup");
-    optgroup.label = group;
-    docs.sort((a, b) => a.title.localeCompare(b.title));
-    for (const doc of docs) {
-      const opt = document.createElement("option");
-      opt.value = doc.id;
-      opt.textContent = doc.title;
-      optgroup.appendChild(opt);
-    }
-    select.appendChild(optgroup);
-  }
 }
 
 function cosineSim(a, b) {
@@ -227,41 +354,141 @@ function docById(id) {
   return corpus.docs.find((d) => d.id === id);
 }
 
-// ---------- sidebar / browse ----------
+// ---------- docs panel: topical grouping + search ----------
+// The vault's own folder layout (PARA: 0-Inbox/1-Projects/2-Areas/3-Resources/...)
+// is organized for maintaining the vault, not for a visitor looking for "everything
+// about Manufacturing." Group by the module/topic tags already on each note instead,
+// falling back to the note's kind for anything untagged.
+const MODULE_LABELS = {
+  manufacturing: "Manufacturing",
+  costing: "Costing",
+  "asset-management": "Asset Management",
+  quality: "Quality Management",
+  integration: "Connectivity & Integration",
+  security: "Security & Permissions",
+  technical: "Technical / PL-SQL",
+  rrp: "Resource Requirements Planning",
+  hcm: "Human Capital Management",
+  purchasing: "Purchasing",
+  "business-reporter": "Business Reporter",
+  api: "API",
+  ai: "AI / Copilot",
+  "supply-chain": "Supply Chain",
+  finance: "Finance",
+  projects: "Projects (Module)",
+  crm: "Customer Relationship Management",
+  inventory: "Inventory Management",
+  scheduling: "Scheduling",
+  policy: "Policy",
+};
+
+const KIND_ORDER = ["Guides", "Glossary", "BDR Items", "Resources", "Areas", "Customer Engagements", "Other", "PDFs"];
+
+function topicForDoc(doc) {
+  if (doc.type === "pdf") return "PDF Library";
+  for (const t of doc.tags || []) {
+    if (MODULE_LABELS[t]) return MODULE_LABELS[t];
+  }
+  if (doc.docType === "bdr") return "BDR Reference";
+  if (doc.docType === "area") return "Areas & Responsibilities";
+  if (["project", "discovery-session", "crims-spec", "meeting"].includes(doc.docType)) return "Customer Engagements";
+  if (doc.docType === "resource") return "General Resources";
+  return "General";
+}
+
+function kindForDoc(doc) {
+  if (doc.type === "pdf") return "PDFs";
+  switch (doc.docType) {
+    case "guide": return "Guides";
+    case "glossary": return "Glossary";
+    case "bdr": return "BDR Items";
+    case "resource": return "Resources";
+    case "area": return "Areas";
+    case "project":
+    case "discovery-session":
+    case "crims-spec":
+    case "meeting":
+      return "Customer Engagements";
+    default: return "Other";
+  }
+}
+
 function renderDocList(filter = "") {
   const container = $("#doc-list");
   container.innerHTML = "";
   const f = filter.trim().toLowerCase();
-  const groups = new Map();
+  const topics = new Map(); // topic -> Map(kind -> docs[])
+  let total = 0;
   for (const doc of corpus.docs) {
-    if (f && !doc.title.toLowerCase().includes(f) && !doc.relPath.toLowerCase().includes(f)) continue;
-    const group = doc.type === "pdf" ? "PDF Library" : path_dirname(doc.relPath);
-    if (!groups.has(group)) groups.set(group, []);
-    groups.get(group).push(doc);
-  }
-  const sortedGroups = [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-  for (const [group, docs] of sortedGroups) {
-    const groupEl = document.createElement("div");
-    groupEl.className = "doc-group";
-    const title = document.createElement("div");
-    title.className = "doc-group-title";
-    title.textContent = group;
-    groupEl.appendChild(title);
-    docs.sort((a, b) => a.title.localeCompare(b.title));
-    for (const doc of docs) {
-      const btn = document.createElement("button");
-      btn.className = "doc-item";
-      btn.textContent = doc.title;
-      btn.addEventListener("click", () => openDoc(doc.id));
-      groupEl.appendChild(btn);
+    if (f) {
+      const matches =
+        doc.title.toLowerCase().includes(f) ||
+        doc.relPath.toLowerCase().includes(f) ||
+        (doc.text && doc.text.toLowerCase().includes(f));
+      if (!matches) continue;
     }
-    container.appendChild(groupEl);
+    const topic = topicForDoc(doc);
+    const kind = kindForDoc(doc);
+    if (!topics.has(topic)) topics.set(topic, new Map());
+    const kinds = topics.get(topic);
+    if (!kinds.has(kind)) kinds.set(kind, []);
+    kinds.get(kind).push(doc);
+    total += 1;
   }
-}
 
-function path_dirname(p) {
-  const idx = p.lastIndexOf("/");
-  return idx === -1 ? "(root)" : p.slice(0, idx);
+  const sortedTopics = [...topics.keys()].sort((a, b) => {
+    const pin = (t) => (t === "PDF Library" ? 2 : t === "General" ? 1 : 0);
+    const pa = pin(a), pb = pin(b);
+    return pa !== pb ? pa - pb : a.localeCompare(b);
+  });
+
+  for (const topic of sortedTopics) {
+    const kinds = topics.get(topic);
+    const topicCount = [...kinds.values()].reduce((n, arr) => n + arr.length, 0);
+
+    const topicEl = document.createElement("div");
+    topicEl.className = "topic-group";
+    const topicTitle = document.createElement("div");
+    topicTitle.className = "topic-title";
+    topicTitle.innerHTML = `${escapeHtml(topic)} <span class="topic-count">${topicCount}</span>`;
+    topicEl.appendChild(topicTitle);
+
+    const sortedKinds = [...kinds.keys()].sort((a, b) => {
+      const ia = KIND_ORDER.indexOf(a), ib = KIND_ORDER.indexOf(b);
+      return (ia === -1 ? KIND_ORDER.length : ia) - (ib === -1 ? KIND_ORDER.length : ib);
+    });
+
+    for (const kind of sortedKinds) {
+      const docs = kinds.get(kind).sort((a, b) => a.title.localeCompare(b.title));
+      const kindEl = document.createElement("div");
+      kindEl.className = "kind-group";
+      if (sortedKinds.length > 1) {
+        const kindTitle = document.createElement("div");
+        kindTitle.className = "kind-title";
+        kindTitle.textContent = kind;
+        kindEl.appendChild(kindTitle);
+      }
+      const itemsEl = document.createElement("div");
+      itemsEl.className = "doc-group-items";
+      for (const doc of docs) {
+        const btn = document.createElement("button");
+        btn.className = "doc-item";
+        btn.textContent = doc.title;
+        btn.addEventListener("click", () => openDoc(doc.id));
+        itemsEl.appendChild(btn);
+      }
+      kindEl.appendChild(itemsEl);
+      topicEl.appendChild(kindEl);
+    }
+    container.appendChild(topicEl);
+  }
+
+  if (total === 0) {
+    const empty = document.createElement("p");
+    empty.className = "placeholder";
+    empty.textContent = f ? `No notes or PDFs match "${filter}".` : "No notes or PDFs found.";
+    container.appendChild(empty);
+  }
 }
 
 // ---------- browse canvas: draggable/collapsible note cards ----------
@@ -274,7 +501,7 @@ function showBrowsePlaceholder() {
   const p = document.createElement("p");
   p.id = "browse-placeholder";
   p.className = "placeholder";
-  p.innerHTML = "Select a note or PDF from the sidebar to open it as a card. Drag cards by their title bar, and use &minus;/&#9633; to collapse or expand.";
+  p.innerHTML = "Select a note or PDF from Docs to open it as a card. Drag cards by their title bar, and use &minus;/&#9633; to collapse or expand.";
   canvas.appendChild(p);
 }
 
@@ -439,16 +666,18 @@ function switchTab(tab) {
   document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
   $("#chat-panel").classList.toggle("active", tab === "chat");
   $("#browse-panel").classList.toggle("active", tab === "browse");
+  $("#docs-panel").classList.toggle("active", tab === "docs");
 }
 
 document.querySelectorAll(".tab-btn").forEach((btn) => {
   btn.addEventListener("click", () => switchTab(btn.dataset.tab));
 });
 
-$("#search").addEventListener("input", (e) => renderDocList(e.target.value));
-
-$("#mobile-doc-select").addEventListener("change", (e) => {
-  if (e.target.value) openDoc(e.target.value);
+let searchDebounce;
+$("#search").addEventListener("input", (e) => {
+  clearTimeout(searchDebounce);
+  const value = e.target.value;
+  searchDebounce = setTimeout(() => renderDocList(value), 150);
 });
 
 if (window.matchMedia("(max-width: 700px)").matches) setViewMode("normal");

@@ -64,6 +64,31 @@ function stripFrontmatter(text) {
   return match ? text.slice(match[0].length) : text;
 }
 
+// Minimal flat-YAML frontmatter parser: handles `key: value` and `key: [a, b, c]`
+// lines, which covers every frontmatter shape actually used in this vault.
+function parseFrontmatter(text) {
+  const match = text.match(/^---\n([\s\S]*?)\n---\n?/);
+  if (!match) return {};
+  const meta = {};
+  for (const line of match[1].split("\n")) {
+    const m = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+    if (!m) continue;
+    const key = m[1].trim();
+    let value = m[2].trim();
+    if (value.startsWith("[") && value.endsWith("]")) {
+      value = value
+        .slice(1, -1)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+    } else {
+      value = value.replace(/^"(.*)"$/, "$1");
+    }
+    if (value !== "" && !(Array.isArray(value) && value.length === 0)) meta[key] = value;
+  }
+  return meta;
+}
+
 function titleFromMarkdown(text, fallback) {
   const h1 = text.match(/^#\s+(.+)$/m);
   return h1 ? h1[1].trim() : fallback;
@@ -144,12 +169,21 @@ async function main() {
     if (!body) continue;
     const relPath = path.relative(VAULT_ROOT, file);
     const title = titleFromMarkdown(body, path.basename(file, ".md"));
+    const frontmatter = parseFrontmatter(raw);
+    const tags = Array.isArray(frontmatter.tags)
+      ? frontmatter.tags
+      : frontmatter.tags
+      ? [frontmatter.tags]
+      : [];
     docs.push({
       id: `note:${relPath}`,
       type: "note",
       title,
       relPath,
       text: body,
+      tags,
+      docType: frontmatter.type || null,
+      frontmatter,
     });
   }
   console.log(`Found ${docs.length} vault notes.`);
@@ -204,7 +238,16 @@ async function main() {
   const corpus = {
     generatedAt: new Date().toISOString(),
     embedModel: EMBED_MODEL,
-    docs: docs.map(({ id, type, title, relPath, text }) => ({ id, type, title, relPath, text })),
+    docs: docs.map(({ id, type, title, relPath, text, tags, docType, frontmatter }) => ({
+      id,
+      type,
+      title,
+      relPath,
+      text,
+      tags: tags || [],
+      docType: docType || null,
+      frontmatter: frontmatter || {},
+    })),
     chunks,
   };
 
