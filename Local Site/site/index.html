@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vault Assistant</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div id="brand">Vault<span class="brand-accent">::</span>Assistant<span id="brand-cursor">_</span></div>
+    <div id="tabs">
+      <button class="tab-btn active" data-tab="chat">Ask</button>
+      <button class="tab-btn" data-tab="browse">Browse</button>
+    </div>
+    <div id="view-mode">
+      <span class="view-label">View</span>
+      <div class="view-toggle">
+        <button class="view-btn" data-mode="normal">Normal</button>
+        <button class="view-btn active" data-mode="nerd">Nerd</button>
+      </div>
+    </div>
+    <input id="search" type="search" placeholder="Filter notes..." />
+    <div id="doc-list"></div>
+    <div id="status-bar">
+      <span id="corpus-status">Loading corpus…</span>
+    </div>
+  </aside>
+
+  <main id="main">
+    <section id="chat-panel" class="panel active">
+      <div id="messages"></div>
+      <form id="chat-form">
+        <textarea id="chat-input" rows="2" placeholder="Ask a question about this vault..."></textarea>
+        <div id="chat-controls">
+          <select id="persona-select"></select>
+          <select id="model-select"></select>
+          <button type="submit" id="send-btn">Ask</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="browse-panel" class="panel">
+      <div id="browse-normal" class="browse-mode">
+        <article id="doc-view">
+          <p class="placeholder">Select a note or PDF from the sidebar to read it here.</p>
+        </article>
+      </div>
+      <div id="browse-canvas" class="browse-mode active">
+        <p id="browse-placeholder" class="placeholder">Select a note or PDF from the sidebar to open it as a card. Drag cards by their title bar, and use &minus;/&#9633; to collapse or expand.</p>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

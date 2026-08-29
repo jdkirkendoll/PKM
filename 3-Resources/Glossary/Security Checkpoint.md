@@ -14,6 +14,7 @@ A Security Checkpoint is a re-authentication gate placed on a specific sensitive
 
 ## Related
 - [[3-Resources/Guides/IFS Security & Permission Sets|IFS Security & Permission Sets (Guide)]]
+- [[3-Resources/Guides/IFS Security Checkpoints Setup|IFS Security Checkpoints Setup (Guide)]]
 - [[3-Resources/Glossary/User Authentication|User Authentication]]
 - [[3-Resources/Glossary/Permission Set|Permission Set]]
 
