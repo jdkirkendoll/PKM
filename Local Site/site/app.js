@@ -1,4 +1,4 @@
-const OLLAMA_HOST = "http://localhost:11434";
+const OLLAMA_HOST = `http://${window.location.hostname}:11434`;
 const DEFAULT_CHAT_MODEL = "llama3.2:3b";
 const TOP_K = 6;
 
