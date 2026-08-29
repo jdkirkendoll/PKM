@@ -227,7 +227,7 @@ function renderDocList(filter = "") {
       const btn = document.createElement("button");
       btn.className = "doc-item";
       btn.textContent = doc.title;
-      btn.addEventListener("click", () => { openDoc(doc.id); closeSidebar(); });
+      btn.addEventListener("click", () => openDoc(doc.id));
       groupEl.appendChild(btn);
     }
     container.appendChild(groupEl);
@@ -414,20 +414,11 @@ function switchTab(tab) {
   document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
   $("#chat-panel").classList.toggle("active", tab === "chat");
   $("#browse-panel").classList.toggle("active", tab === "browse");
-  closeSidebar();
 }
 
 document.querySelectorAll(".tab-btn").forEach((btn) => {
   btn.addEventListener("click", () => switchTab(btn.dataset.tab));
 });
-
-// ---------- mobile sidebar drawer ----------
-function openSidebar() { $("#app").classList.add("sidebar-open"); }
-function closeSidebar() { $("#app").classList.remove("sidebar-open"); }
-
-$("#menu-open").addEventListener("click", openSidebar);
-$("#menu-toggle").addEventListener("click", closeSidebar);
-$("#sidebar-backdrop").addEventListener("click", closeSidebar);
 
 $("#search").addEventListener("input", (e) => renderDocList(e.target.value));
 
