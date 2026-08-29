@@ -57,6 +57,10 @@ html, body {
   box-shadow: 4px 0 24px rgba(0, 255, 162, 0.05);
 }
 
+#mobile-header { display: none; }
+
+#mobile-doc-select { display: none; }
+
 #brand {
   font-weight: 600;
   padding: 18px 16px;
@@ -551,3 +555,71 @@ html, body {
   text-align: left;
 }
 .doc-card-body a, #doc-view a { color: var(--accent2); text-shadow: 0 0 6px var(--accent2-soft); }
+
+/* ---------- mobile: separate simplified layout, no sidebar ---------- */
+
+@media (max-width: 700px) {
+  #app { flex-direction: column; height: 100vh; }
+
+  #sidebar { display: none; }
+
+  #mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+    flex-shrink: 0;
+  }
+
+  #mobile-brand {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-shadow: 0 0 8px var(--accent-soft);
+    font-size: 14px;
+  }
+
+  #mobile-tabs { display: flex; gap: 6px; }
+
+  #mobile-tabs .tab-btn {
+    flex: none;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 12px;
+  }
+
+  #mobile-tabs .tab-btn.active { border-color: var(--accent); }
+
+  #main { flex: 1; min-height: 0; }
+
+  #mobile-doc-select {
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  #messages { padding: 16px; gap: 10px; }
+
+  .msg { max-width: 100%; font-size: 13.5px; }
+
+  #chat-form { padding: 10px 14px; }
+
+  #chat-controls { flex-wrap: wrap; gap: 8px; }
+
+  #persona-select, #model-select { flex: 1 1 45%; min-width: 0; }
+
+  #send-btn { flex: 1 1 100%; }
+
+  #doc-view { padding: 16px; }
+
+  #view-mode { display: none; }
+}

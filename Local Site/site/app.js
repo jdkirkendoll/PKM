@@ -169,6 +169,31 @@ async function loadCorpus() {
   $("#corpus-status").textContent =
     `${corpus.docs.length} docs, ${corpus.chunks.length} chunks (built ${new Date(corpus.generatedAt).toLocaleDateString()})`;
   renderDocList();
+  renderMobileDocSelect();
+}
+
+function renderMobileDocSelect() {
+  const select = $("#mobile-doc-select");
+  select.innerHTML = '<option value="">Select a note or PDF…</option>';
+  const groups = new Map();
+  for (const doc of corpus.docs) {
+    const group = doc.type === "pdf" ? "PDF Library" : path_dirname(doc.relPath);
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group).push(doc);
+  }
+  const sortedGroups = [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  for (const [group, docs] of sortedGroups) {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = group;
+    docs.sort((a, b) => a.title.localeCompare(b.title));
+    for (const doc of docs) {
+      const opt = document.createElement("option");
+      opt.value = doc.id;
+      opt.textContent = doc.title;
+      optgroup.appendChild(opt);
+    }
+    select.appendChild(optgroup);
+  }
 }
 
 function cosineSim(a, b) {
@@ -421,6 +446,12 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 });
 
 $("#search").addEventListener("input", (e) => renderDocList(e.target.value));
+
+$("#mobile-doc-select").addEventListener("change", (e) => {
+  if (e.target.value) openDoc(e.target.value);
+});
+
+if (window.matchMedia("(max-width: 700px)").matches) setViewMode("normal");
 
 // ---------- persona list ----------
 function loadPersonas() {
