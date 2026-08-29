@@ -1,0 +1,106 @@
+views:
+  - type: table
+    name: All
+    order:
+      - file.name
+      - type
+      - tags
+      - created
+    sort:
+      - property: type
+        direction: ASC
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Areas
+    filters:
+      and:
+        - type == "area"
+    order:
+      - file.name
+      - tags
+      - created
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: BDR
+    filters:
+      and:
+        - type == "bdr"
+    order:
+      - file.name
+      - area
+      - created
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Glossary
+    filters:
+      and:
+        - type == "glossary"
+    order:
+      - file.name
+      - term
+      - tags
+      - created
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Guides
+    filters:
+      and:
+        - type == "guide"
+    order:
+      - file.name
+      - topic
+      - tags
+      - source
+      - created
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Resources
+    filters:
+      and:
+        - type == "resource"
+    order:
+      - file.name
+      - topic
+      - tags
+      - created
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: Projects
+    filters:
+      and:
+        - type == "project"
+    order:
+      - file.name
+      - area
+      - customer
+      - status
+      - due
+      - created
+    sort:
+      - property: due
+        direction: ASC
+  - type: table
+    name: Meetings
+    filters:
+      and:
+        - type == "meeting"
+    order:
+      - file.name
+      - project
+      - customer
+      - attendees
+      - created
+    sort:
+      - property: created
+        direction: DESC
