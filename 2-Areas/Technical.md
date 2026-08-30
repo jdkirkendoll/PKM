@@ -13,3 +13,8 @@ created: 2026-08-27
 - [[3-Resources/Guides/IFS Security Checkpoints Setup|IFS Security Checkpoints Setup]]
 - [[3-Resources/Guides/IFS Connect & Connectivity|IFS Connect & Connectivity]]
 - [[3-Resources/Guides/IFS Background & System Processing|IFS Background & System Processing]]
+- [[3-Resources/Guides/IFS Cloud Web Development Overview|IFS Cloud Web Development Overview]]
+- [[3-Resources/Guides/IFS Cloud Web Development Concepts|IFS Cloud Web Development Concepts]]
+- [[3-Resources/Guides/IFS Cloud Web Searching|IFS Cloud Web Searching]]
+- [[3-Resources/Guides/IFS Cloud Web Client Controls|IFS Cloud Web Client Controls]]
+- [[3-Resources/Guides/IFS Service Layer XML Serialization Format|IFS Service Layer XML Serialization Format]]
