@@ -1,19 +1,15 @@
 # Projects
 
-Active work with a defined end state and (usually) a deadline. Each project gets its own subfolder. Customer work is nested under a 3-letter customer code; internal/non-customer projects sit flat:
+Active work with a defined end state and (usually) a deadline. Each project gets its own subfolder, filed flat:
 
 ```
 1-Projects/
-  CIR/                          <- customer code (CIRCOR)
-    CRIM006 - UKG Integration/
-      CRIM006 - UKG Integration.md   <- main project note, use Templates/Project.md
-      CRIM006 - Status Update Talking Points.md
-  Website Redesign/             <- no customer, filed flat
-    Website Redesign.md
+  Website Redesign/
+    Website Redesign.md   <- main project note, use Templates/Project.md
     Research.md
     assets/
 ```
 
-A project note's `customer` frontmatter field is the source of truth for which folder it belongs in — see `.claude/skills/organize-inbox/SKILL.md`. If a note's `customer` value doesn't have a matching folder here, create the folder and move the note into it.
+Customer/client engagement work (project notes, CRIMS specs, meetings, discovery sessions) lives in the separate [PKM-CUST](https://github.com/jdkirkendoll/PKM-CUST) vault, not here — this vault stays generic IFS Cloud documentation so it can be deployed as a standalone knowledge agent. If a note has a `customer` frontmatter value, it belongs in PKM-CUST, not under `1-Projects/` here.
 
-When a project finishes, move its whole folder (including its customer folder, if now empty of other projects) into `4-Archive/`.
+When a project finishes, move its whole folder into `4-Archive/`.

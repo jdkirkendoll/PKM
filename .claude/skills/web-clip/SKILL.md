@@ -24,8 +24,7 @@ Based on the seed page's content, judge which of the vault's note types could pl
 - **glossary** — the page defines several distinct terms clearly enough to each get their own short entry (matches `3-Resources/Glossary/`).
 - **resource** — reference material that isn't narrative (a spec, a list, a reference table).
 - **area** — describes an ongoing domain of responsibility the user doesn't already have an Area for.
-- **project** — describes something with a concrete end state/deliverable.
-- **meeting**, **crims-spec**, **discovery-session** — customer-specific formats; only offer these if the page is clearly tied to a specific customer engagement the user is tracking.
+- **project** — describes something with a concrete end state/deliverable, and is not customer engagement work (that belongs in the separate PKM-CUST vault, not here).
 
 Only offer the types that genuinely fit — don't present the full list by default. If just one type fits, ask to confirm that one rather than presenting a moot choice. Ask with the AskUserQuestion tool, allowing multiple selections (a page can justify both a guide and several glossary entries, for example).
 
@@ -45,7 +44,7 @@ Match the frontmatter and body shape already used in this vault for each type:
 
 - **guide**: `type: guide`, `topic`, `source: web`, `created`, `tags: [guide, ...]`. Body: `## Summary`, `## Details`, `## Sources`. Save to `0-Inbox/<Title>.md` — don't file it directly, per the normal inbox review flow.
 - **glossary**: `type: glossary`, `term`, `source: web`, `created`, `tags: [glossary, ...]`, one file per term at `3-Resources/Glossary/<Term>.md`. Body: `## Summary` (with a `> [!note] Confidence: ...` callout if anything is inferred rather than confirmed on the page), `## Related`, `## Sources`. Glossary entries go straight to `3-Resources/Glossary/` — no inbox step, matching how `/bdr-glossary` files them.
-- **resource** / **area** / **project** / **meeting** / **crims-spec** / **discovery-session**: use the frontmatter shape documented in `/format-note`, and save to `0-Inbox/<Title>.md` for the normal review flow rather than filing directly.
+- **resource** / **area** / **project**: use the frontmatter shape documented in `/format-note`, and save to `0-Inbox/<Title>.md` for the normal review flow rather than filing directly.
 
 Cite the seed page and any additional pages actually used as sources in every note produced.
 

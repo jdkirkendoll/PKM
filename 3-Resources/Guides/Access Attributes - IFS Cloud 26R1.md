@@ -40,4 +40,4 @@ As a result of this activity, a basic access attribute will be created. It will 
 
 ## Related
 - [[HR Access Configuration]]
-- [[CRIM006 - UKG Integration]] — relevant to the open "who needs an IFS user account" question
+- CRIM006 - UKG Integration (in the PKM-CUST vault) — relevant to the open "who needs an IFS user account" question
